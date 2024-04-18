@@ -1,0 +1,48 @@
+{% extends "market_app/base.html" %}
+{% block title %}Market List{% endblock title %}
+{% block name %}Market List{% endblock name %}
+{% block body %}
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <!-- Row -->
+        <div class="row">
+            <div class="col-xl-12">
+                 <!-- Row -->
+                <div class="row">
+                    <!-- column -->
+                    {% for stock in stockList  %}
+                    
+                    <div class="col-xl-3 col-md-6 col-sm-6">
+                        <div class="card pull-up">
+                            <div class="card-body align-items-center flex-wrap">
+                                <div class="d-flex align-items-center mb-5">
+                                    <a href="javascript:void(0)" class="ico-icon">
+                                        <img class="market-icon bg-warning" src="/media/{{stock.stock_symbol}}" alt="">
+                                    </a>
+                                    <div class="ms-4 ">
+                                        <a href="javascript:void(0)"><h4 class="heading mb-0">{{stock.short_name}}</h4></a>
+                                        <span>{{stock.name}}</span>
+                                    </div>
+                                </div>	
+                                <div class="mb-3 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <p class="mb-0 fs-14 text-black">${{stock.price}}/{{stock.market_cap}}</P>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0 fs-14 text-success">{{stock.change}}%</P>
+                                    </div>
+                                </div>
+                            </div>	
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <!-- /column -->
+                    
+                </div>	
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

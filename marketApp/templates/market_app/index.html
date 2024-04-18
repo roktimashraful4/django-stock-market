@@ -1,0 +1,263 @@
+{% extends "market_app/base.html" %}
+{% block title %}Dashboard{% endblock title %}
+{% block name %}Dashboard{% endblock name %}
+{% block body %}
+<div class="content-body">
+	<!-- row -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="row">
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card card-box bg-warning">
+							<div class="card-header border-0 pb-0">
+								<div class="chart-num-days">
+									<p>Balance </p>
+									<h2 class="count-num text-white">${{user_account.balance}}</h2>
+								</div>
+								<i class="fa-solid fa-money-bill-wave  text-white fa-3x"></i>
+							</div>
+							<button class='btn btn-link text-white btn-sm' data-bs-toggle="modal" data-bs-target="#basicModal">	DIPOSIT MONEY 
+								<i class="fa-solid fa-money-bill-wave"></i>
+							</button>
+							<div class="modal fade" id="basicModal">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Diposit Your Money </h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal">
+											</button>
+										</div>
+										<form action="deposit" method="post">
+										 {% csrf_token %}
+										<div class="modal-body">
+											<div class="input-group mb-3  input-info">
+												<span class="input-group-text border-0">$</span>
+												<input type="number" class="form-control" name='balance' required >
+												<span class="input-group-text border-0">.00</span>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Save changes</button>
+										</div>
+									</form>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card card-box bg-secondary">
+							<div class="card-header border-0 pb-0">
+								<div class="chart-num-days">
+									<p>
+										<i class="fa-solid fa-sort-down me-2"></i>
+										Total profit
+									</p>
+									<h2 class="count-num text-white">$65,123</h2>
+								</div>
+								<i class="fa-solid fa-money-bill-trend-up text-white fa-3x"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card card-box bg-pink">
+							<div class="card-header border-0 pb-0">
+								<div class="chart-num-days">
+									<p>
+										Total Transitions
+									</p>
+									<h2 class="count-num text-white">$65,123</h2>
+								</div>
+								<i class="fa-solid fa-money-bill-transfer text-white fa-3x"></i>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card card-box bg-primary">
+							<div class="card-header border-0 pb-0">
+								<div class="chart-num-days">
+									<p>
+										<i class="fa-solid fa-sort-down me-2"></i>
+										4%(30 days)
+									</p>
+									<h2 class="count-num text-white">$65,123</h2>
+								</div>
+								<svg width="50" height="45" viewBox="0 0 137 137" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M68.5 0C30.6686 0 0 30.6686 0 68.5C0 106.331 30.6686 137 68.5 137C106.331 137 137 106.331 137 68.5C136.958 30.6865 106.313 0.0418093 68.5 0ZM40.213 63.6068H59.7843C62.4869 63.6068 64.6774 65.7973 64.6774 68.5C64.6774 71.2027 62.4869 73.3932 59.7843 73.3932H40.213C37.5104 73.3932 35.3199 71.2027 35.3199 68.5C35.3199 65.7973 37.5119 63.6068 40.213 63.6068ZM101.393 56.6456L95.5088 86.0883C94.1231 92.9226 88.122 97.8411 81.1488 97.8576H40.213C37.5104 97.8576 35.3199 95.6671 35.3199 92.9644C35.3199 90.2617 37.5119 88.0712 40.213 88.0712H81.1488C83.4617 88.0652 85.4522 86.4347 85.9121 84.168L91.7982 54.7253C92.3208 52.0973 90.6156 49.544 87.9891 49.0214C87.677 48.9601 87.3605 48.9288 87.0439 48.9288H49.9994C47.2967 48.9288 45.1062 46.7383 45.1062 44.0356C45.1062 41.3329 47.2967 39.1424 49.9994 39.1424H87.0439C95.128 39.1454 101.679 45.699 101.677 53.7831C101.677 54.7433 101.582 55.7019 101.393 56.6456Z" fill="#FFF"></path>
+								</svg>
+							</div>
+							<div class="card-body p-0 custome-tooltip">
+								<div id="widgetChart2" class="chart-primary"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-8">
+				<div class="col-xl-12">
+					<div class="card">
+						
+						<div class="card-body pt-0">
+							<div class="tab-content" id="pills-tabContent">
+								<div class="tab-pane fade show active" id="pills-crypto" role="tabpanel" aria-labelledby="pills-crypto-tab">
+									<div class="table-responsive dataTablemarket">
+										<table id="example" class="table shadow-hover display" width='100%'>
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th class="text-center">Price</th>
+													<th class="text-center">Change</th>
+													<th class="text-center">Market Cap</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for stock in stockList  %}
+												
+												<tr>
+													<td>
+														<a class="market-title d-flex align-items-center" href="javascript:void(0)">
+															
+															<img class="market-icon bg-warning" src="/media/{{stock.stock_symbol}}" alt="">	
+															<h5 class="mb-0 ms-2">{{stock.short_name}}</h5>
+															<span class="text-muted ms-2">{{stock.name}}</span>
+														</a>
+													</td>
+													<td>${{stock.price}}</td>
+													<td class="text-success">+{{stock.change}}%</td>
+													<td>${{stock.market_cap}}</td>
+													
+												</tr>
+												{% endfor %}
+											
+											</tbody>
+										</table>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-4">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="heading mb-0">Activity</h4>
+					</div>
+					<div class="card-body pt-0">
+						<div class="table-responsive">
+							<table class="table border-0 mb-0 activity-tbl">
+								<thead>					
+									<tr class="bg-pale-dark">
+									  <th>#</th>
+									  <th class="text-center">BTC</th>
+									  <th>Time</th>
+									  <th class="text-end">Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">55542545</a>
+										</td>
+										<td class="text-nowrap">1.48586 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">5m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-success">Confirmed</span></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">55558588</a>
+										</td>
+										<td class="text-nowrap">1.38286 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">4m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-warning">Unconfirmed</span></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">5825545</a>
+										</td>
+										<td class="text-nowrap">1.55586 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">2m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-success">Confirmed</span></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">54736888</a>
+										</td>
+										<td class="text-nowrap">1.38286 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">4m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-danger">Canceled</span></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">55542545</a>
+										</td>
+										<td class="text-nowrap">1.48586 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">9m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-success">Confirmed</span></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">55558588</a>
+										</td>
+										<td class="text-nowrap">1.38286 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">5m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-warning">Unconfirmed</span></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">5825545</a>
+										</td>
+										<td class="text-nowrap">1.55586 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">4m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-success">Confirmed</span></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">54736888</a>
+										</td>
+										<td class="text-nowrap">1.38286 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">8m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-danger">Canceled</span></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" class="text-primary">44736888</a>
+										</td>
+										<td class="text-nowrap">2.25286 BTC</td>
+										<td>
+											<span class="timeago text-nowrap">7m ago</span>
+										</td>
+										<td class="text-end"><span class="label label-danger">Canceled</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
